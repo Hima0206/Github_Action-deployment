@@ -20,22 +20,6 @@ spec:
 
 ---
 apiVersion: v1
-kind: Config
-clusters:
-  ...
-contexts:
-  ...
-current-context: ...
-preferences: {}
-users:
-  - name: minikube
-    user:
-      client-certificate-data: <base64 -w 0 /home/himateja/.minikube/profiles/minikube/client.crt>
-      client-key-data: <base64 -w 0 /home/himateja/.minikube/profiles/minikube/client.key>
-      
-
----
-apiVersion: v1
 kind: Service
 metadata:
   name: flaskdemo-service
