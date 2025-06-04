@@ -58,6 +58,33 @@ jobs:
           chmod +x minikube
           sudo mv minikube /usr/local/bin/
           minikube start
+      name: CICD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Validate KUBECONFIG
+        run: |
+          if [ -z "$KUBECONFIG" ] || [ ! -f "$KUBECONFIG" ]; then
+            echo "Error: KUBECONFIG file does not exist or is not set.";
+            exit 1;
+          fi
+
+      - name: Deployment step
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          echo "KUBECONFIG exists. Proceeding with deployment..."
+          kubectl config view
 
       - name: Debug Kubernetes Configuration
         run: |
