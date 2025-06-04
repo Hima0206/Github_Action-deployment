@@ -70,7 +70,11 @@ jobs:
            echo "KUBECONFIG is set and file exists.";
            cat $KUBECONFIG;
            fi
-
+      - name: Write KUBECONFIG file
+        run: echo "${KUBECONFIG}" > kubeconfig && export KUBECONFIG=$PWD/kubeconfig
+        shell: bash
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
       - name: Validate KUBECONFIG
         run: |
           if [ -z "$KUBECONFIG" ] || [ ! -f "$KUBECONFIG" ]; then
