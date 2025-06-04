@@ -55,7 +55,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    - name: Debug Kubernetes Configuration
+      run: |
+        echo "Validating KUBECONFIG..."
+        cat $KUBECONFIG
+        kubectl config view
     - name: Deploy to k8s
       run: |
         kubectl cluster-info
