@@ -58,19 +58,7 @@ jobs:
           chmod +x minikube
           sudo mv minikube /usr/local/bin/
           minikube start
-      name: CICD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      
 
       - name: Validate KUBECONFIG
         run: |
