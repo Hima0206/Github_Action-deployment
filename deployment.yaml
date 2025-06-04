@@ -16,7 +16,7 @@ spec:
         - image: himateja0206/flaskdemo:latest
         name: flaskdemo
         ports:
-          -containerPort: 80
+        - containerPort: 80
 
 ---
 apiVersion: v1
