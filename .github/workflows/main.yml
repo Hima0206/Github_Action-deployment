@@ -9,7 +9,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -46,59 +46,15 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Minikube
+      - name: set KUBECONFIG
         run: |
-          curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-          chmod +x minikube
-          sudo mv minikube /usr/local/bin/
-          minikube start
-      - name: Debug KUBECONFIG Secret
-        run: |
-         if [ -z "$KUBECONFIG" ]; then
-           echo "KUBECONFIG is not set. Ensure it is configured properly in secrets.";
-           exit 1;
-         elif [ ! -f "$KUBECONFIG" ]; then
-           echo "KUBECONFIG file does not exist at $KUBECONFIG.";
-           exit 1;
-         else
-           echo "KUBECONFIG is set and file exists.";
-           cat $KUBECONFIG;
-           fi
-      - name: Write KUBECONFIG file
-        run: echo "${KUBECONFIG}" > kubeconfig && export KUBECONFIG=$PWD/kubeconfig
-        shell: bash
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-      - name: Validate KUBECONFIG
-        run: |
-          if [ -z "$KUBECONFIG" ] || [ ! -f "$KUBECONFIG" ]; then
-            echo "Error: KUBECONFIG file does not exist or is not set.";
-            exit 1;
-          fi
-
-      - name: Deployment step
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        run: |
-          echo "KUBECONFIG exists. Proceeding with deployment..."
-          kubectl config view
-
-      - name: Debug Kubernetes Configuration
-        run: |
-          if [ -f "$KUBECONFIG" ]; then
-            echo "KUBECONFIG exists. Validating configuration..."
-            cat $KUBECONFIG
-            kubectl config view
-          else
-            echo "Error: KUBECONFIG file does not exist."
-            exit 1
-          fi
+          echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
 
       - name: Deploy to k8s
         run: |
