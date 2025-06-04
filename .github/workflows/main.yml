@@ -58,7 +58,18 @@ jobs:
           chmod +x minikube
           sudo mv minikube /usr/local/bin/
           minikube start
-      
+      - name: Debug KUBECONFIG Secret
+        run: |
+         if [ -z "$KUBECONFIG" ]; then
+           echo "KUBECONFIG is not set. Ensure it is configured properly in secrets.";
+           exit 1;
+         elif [ ! -f "$KUBECONFIG" ]; then
+           echo "KUBECONFIG file does not exist at $KUBECONFIG.";
+           exit 1;
+         else
+           echo "KUBECONFIG is set and file exists.";
+           cat $KUBECONFIG;
+           fi
 
       - name: Validate KUBECONFIG
         run: |
