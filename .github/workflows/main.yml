@@ -58,6 +58,6 @@ jobs:
 
     - name: Deploy to k8s
       run: |
-        kubectl apply -f k8s/
+        kubectl apply -f deployment.yaml/
       env:
         KUBECONFIG: ${{ env.KUBECONFIG }} 
