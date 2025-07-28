@@ -13,16 +13,14 @@ jobs:
     steps:
       - name: Install Python 3.9 (Ubuntu example)
         run: |
-          sudo yum-get update
-          sudo yum-get install -y python3.9 python3.9-venv python3.9-distutils
+          sudo yum update -y
+          sudo yum install -y python39 python39-pip
+
             
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
+     
 
       - name: Install dependencies
         run: |
