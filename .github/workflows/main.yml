@@ -12,10 +12,6 @@ jobs:
     runs-on: self-hosted
     steps:
 
-      - name: Install dependencies
-        run: |
-          python3.9 -m pip install --upgrade pip
-          pip3.9 install -r requirements.txt
 
             
       - name: Checkout code
