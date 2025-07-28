@@ -12,10 +12,10 @@ jobs:
     runs-on: self-hosted
     steps:
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-         python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python3.9 -m pip install --upgrade pip
+          pip3.9 install -r requirements.txt
 
             
       - name: Checkout code
