@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Install Python 3.9 (Ubuntu example)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3.9 python3.9-venv python3.9-distutils
+          sudo yum-get update
+          sudo yum-get install -y python3.9 python3.9-venv python3.9-distutils
             
       - name: Checkout code
         uses: actions/checkout@v2
