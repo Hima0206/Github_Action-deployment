@@ -24,10 +24,11 @@ kind: Service
 metadata:
   name: flaskdemo-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
+    nodePort: 30080
   selector:
     app: flaskdemo
