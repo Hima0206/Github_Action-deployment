@@ -36,7 +36,7 @@ jobs:
         with:
           push: true
           tags: himateja0206/flaskdemo:latest
-          context: .
+          context: app
           file: app/Dockerfile
 
   deploy:
